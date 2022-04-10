@@ -1,5 +1,6 @@
+import { css } from "@emotion/css";
 import { useEffect, useState } from "react";
-import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
+import { Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { prefType } from "../../types/chart";
 
 export const Chart = ({
@@ -7,6 +8,14 @@ export const Chart = ({
 }: {
   selectedPrefecture: prefType[];
 }) => {
+  const chartCss = css`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  `
+  
   // Chart X-Axis validation
   const [rechartdata, setReChartData] = useState([{year: 1960},{year: 1965},{year: 1970},{year: 1975},{year: 1980},{year: 1985},{year: 1990},{year: 1995},{year: 2000},{year: 2005},{year: 2010},{year: 2015},{year: 2020},{year: 2025},{year: 2030},{year: 2035},{year: 2040}]);
   useEffect(() => {
@@ -51,8 +60,8 @@ export const Chart = ({
     setReChartData(Chartdata);
   }, [rechartdata, selectedPrefecture]);
   return (
-    <>
-    {}
+    <div className={chartCss}>
+    <ResponsiveContainer width={'99%'} height={500}>
     <LineChart
       width={600}
       height={600}
@@ -91,6 +100,7 @@ export const Chart = ({
         wrapperStyle={{ right: 15, top: 20 }}
       />
     </LineChart>
-    </>
+    </ResponsiveContainer>
+    </div>
   );
 };
