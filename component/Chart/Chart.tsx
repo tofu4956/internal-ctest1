@@ -97,7 +97,7 @@ export const Chart = ({
         align="right"
         verticalAlign="top"
         layout="vertical"
-        wrapperStyle={{ right: 15, top: 20 }}
+        wrapperStyle={{ right: 10, top: 20 }}
       />
     </LineChart>
     </ResponsiveContainer>
