@@ -1,3 +1,4 @@
+import { css } from "@emotion/css";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { prefType } from "../../types/chart";
 
@@ -12,6 +13,31 @@ export const Checkbox = ({
   selectedPrefecture: prefType[];
   setSelectedPrefecture: Dispatch<SetStateAction<prefType[]>>;
 }) => {
+  const breakpoints = [576, 768, 992, 1200];
+
+  const mq = breakpoints.map((bp) => `@media (min-width: ${bp}px)`);
+  const checkboxOuter = css`
+    margin: 1em;
+  `
+  const checkboxItem = css`
+    padding-top: 15px;
+    padding-bottom: 15px;
+    display: grid;
+    font-size: 10px;
+    gap: 12px;
+    margin: auto;
+    align-items: center;
+    place-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    @media (min-width: 480px) {
+      font-size: 14px;
+    }
+    @media (min-width: 768px) {
+      font-size: 20px;
+    }
+
+  `;
+
   useEffect(() => {
     const url = new URL(
       "https://opendata.resas-portal.go.jp/api/v1/prefectures"
@@ -46,7 +72,8 @@ export const Checkbox = ({
     }
   };
   return (
-    <div>
+    <div className={checkboxOuter}>
+    <div className={checkboxItem}>
       {prefecture.map((data) => (
         <label key={data["prefCode"]}>
           <input
@@ -59,6 +86,7 @@ export const Checkbox = ({
           {data["prefName"]}
         </label>
       ))}
+    </div>
     </div>
   );
 };
