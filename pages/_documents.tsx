@@ -4,7 +4,7 @@ export default class MyDocument extends Document {
   render(): JSX.Element {
     return (
       <Html lang="ja">
-        <Head/>
+        <Head />
         <body>
           <Main />
           <NextScript />
