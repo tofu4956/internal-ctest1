@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "pre:lint": "prettier --write ./**/*.{ts,tsx}",
+    "es:lint": "eslint --fix ./**/*.{ts,tsx}",
+    "es:check": "eslint  ./**/*.{ts,tsx}",
     "cy:open": "cypress open"
   },
   "dependencies": {
