@@ -50,7 +50,12 @@ export const Checkbox = ({
         "X-API-KEY": String(process.env.NEXT_PUBLIC_RESAS_API_KEY),
       },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if(!res.ok) {
+          console.error("server error");
+        }
+        return res.json()
+      })
       .then((data) => {
         setPrefecture(data.result);
       });
