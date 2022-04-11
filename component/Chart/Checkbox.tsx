@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { prefType } from "../../types/chart";
 
 export const Checkbox = ({
@@ -13,12 +13,9 @@ export const Checkbox = ({
   selectedPrefecture: prefType[];
   setSelectedPrefecture: Dispatch<SetStateAction<prefType[]>>;
 }) => {
-  const breakpoints = [576, 768, 992, 1200];
-
-  const mq = breakpoints.map((bp) => `@media (min-width: ${bp}px)`);
   const checkboxOuter = css`
     margin: 1em;
-  `
+  `;
   const checkboxItem = css`
     padding-top: 15px;
     padding-bottom: 15px;
@@ -35,7 +32,6 @@ export const Checkbox = ({
     @media (min-width: 768px) {
       font-size: 20px;
     }
-
   `;
 
   useEffect(() => {
@@ -51,15 +47,16 @@ export const Checkbox = ({
       },
     })
       .then((res) => {
-        if(!res.ok) {
+        if (!res.ok) {
           console.error("server error");
         }
-        return res.json()
+        return res.json();
       })
       .then((data) => {
         setPrefecture(data.result);
       });
   }, [setPrefecture]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onChangeEventListener = (event: any) => {
     if (event.target.checked === true) {
       const buffer = [...selectedPrefecture];
@@ -78,20 +75,20 @@ export const Checkbox = ({
   };
   return (
     <div className={checkboxOuter}>
-    <div className={checkboxItem}>
-      {prefecture.map((data) => (
-        <label key={data["prefCode"]}>
-          <input
-            type="checkbox"
-            id={String(data["prefCode"])}
-            data-key={data["prefCode"]}
-            name={data["prefName"]}
-            onChange={onChangeEventListener}
-          />
-          {data["prefName"]}
-        </label>
-      ))}
-    </div>
+      <div className={checkboxItem}>
+        {prefecture.map((data) => (
+          <label key={data["prefCode"]}>
+            <input
+              type="checkbox"
+              id={String(data["prefCode"])}
+              data-key={data["prefCode"]}
+              name={data["prefName"]}
+              onChange={onChangeEventListener}
+            />
+            {data["prefName"]}
+          </label>
+        ))}
+      </div>
     </div>
   );
 };

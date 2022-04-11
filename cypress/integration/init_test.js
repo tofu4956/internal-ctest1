@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 describe('Check has header', () => { 
   it('page has header', () => {
     cy.visit("http://localhost:3000")
