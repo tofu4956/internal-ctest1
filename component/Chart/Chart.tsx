@@ -29,14 +29,19 @@ export const Chart = ({
       setTimeout(() => {
         url.searchParams.set("prefCode", String(pref.prefCode));
         if (pref["prefName"] in Chartdata === false)
-          fetch(url, {
+          fetch(url.toString(), {
             method: "GET",
             cache: "default",
             headers: {
               "X-API-KEY": String(process.env.NEXT_PUBLIC_RESAS_API_KEY),
             },
           })
-            .then((res) => res.json())
+            .then((res) => {
+              if(!res.ok){
+                console.error('Server Error');
+              }
+              return res.json()
+            })
             .then((data) => {
               data.result.data[0].data.map(
                 (data: { year: number; value: number }) => {
@@ -53,7 +58,8 @@ export const Chart = ({
                   }
                 }
               );
-            });
+            })
+            .catch(e => console.error("There was an error", e));
       }, 300);
       console.log(Chartdata);
     });
